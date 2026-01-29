@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Data
+# We usually don't push raw data to GitHub if it's large or sensitive,
+# but for a small demo project, cleaned data can be included.
+data/raw/
+data/processed/*.csv
+
+# IDEs
+.vscode/
+.idea/
+.gemini/
