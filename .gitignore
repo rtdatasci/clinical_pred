@@ -7,10 +7,8 @@ venv/
 ENV/
 
 # Data
-# We usually don't push raw data to GitHub if it's large or sensitive,
-# but for a small demo project, cleaned data can be included.
-data/raw/
-data/processed/*.csv
+# Including data for demo visibility as these are public/anonymous datasets
+!data/
 
 # IDEs
 .vscode/

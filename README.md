@@ -2,6 +2,12 @@
 
 This project demonstrates how to handle common data quality issues in clinical datasets and prepare them for machine learning.
 
+## Privacy & Data Source
+**Important Note on Data Privacy:** 
+All data used in this demo is strictly **anonymous and public domain**. 
+- The [UCI Heart Disease Dataset](https://archive.ics.uci.edu/dataset/45/heart+disease) and [Pima Indians Diabetes Dataset](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database) are open-source datasets provided for research and educational purposes. 
+- No Personally Identifiable Information (PII) or Protected Health Information (PHI) is contained within this repository.
+
 ## Datasets
 1.  **UCI Heart Disease (Cleveland)**: Predicting heart disease presence.
 2.  **Pima Indians Diabetes**: Predicting diabetes onset.
