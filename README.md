@@ -16,14 +16,10 @@ Clinical datasets are rarely "ML-ready." This project emphasizes three core prin
 ## 1. Missingness Audit
 We explicitly identify and handle "non-standard missing value encoding" to avoid skewing clinical analysis.
 
-### Heart Disease (Cleveland)
-Missing attributes like `ca` (vessels) and `thal` were encoded with `?`.
-| Variable   | Missing (Raw)   | Type                                  |
-|:-----------|:----------------|:--------------------------------------|
-| ca         | 4 (1.3%)        | Structural (Non-standard encoding: ?) |
-| thal       | 2 (0.7%)        | Structural (Non-standard encoding: ?) |
 
 ### Diabetes (Pima Indians)
+**Data Source**: [Pima Indians Diabetes Database (UCI Machine Learning Repository)](https://archive.ics.uci.edu/ml/datasets/pima+indians+diabetes)
+
 Focuses on "Biological Impossible Zeros" treated as missing.
 | Variable      | Missing (Raw) | Type                          |
 |:--------------|:--------------|:------------------------------|
@@ -43,10 +39,6 @@ Imputation can shift the mean. For example, in the Diabetes dataset, imputing **
 We check for values that fall outside conservative biological limits (e.g., Blood Pressure < 40).
 - **Diabetes**: Found 4 violations in Blood Pressure (min 24.0) and 1 in BMI (max 67.1). These represent extreme cases or sensor errors that require human review.
 
-## Label Consolidation & Traceability
-In the Heart Disease dataset, raw labels range from 0 (healthy) to 4 (severe disease). 
-- **Original labels are preserved** in the `target_original` column.
-- **New label is derived** (binary: 0 or 1) for the `target` column to support screening tasks.
 
 ## How to Run
 1. Install dependencies: `pip install -r requirements.txt`
