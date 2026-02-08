@@ -45,10 +45,10 @@ We use a tiered approach to handle missingness without data loss.
 - **Why**: No derivation from a multi-class scale was needed for this dataset (unlike Cleveland Heart Disease), preserving the original ground truth.
 
 ## 3. Clinical Quality Report
-The `quality_report.py` script identifies artifacts introduced during cleaning and verifies biological plausibility.
+The `run_audit.py` script identifies artifacts introduced during cleaning and verifies biological plausibility.
 
 ### Distribution Shifts
-Imputation can shift the mean. For example, in the Diabetes dataset, imputing **Insulin** (which had ~49% zeros) resulted in a shift of **-14.88** in the mean, identifying a significant "cleaning artifact" that researchers should be aware of.
+Imputation can shift the mean. For example, in the Diabetes dataset, imputing **Insulin** (which had ~49% zeros) resulted in a shift of **+0.29** in the mean, identifying a significant "cleaning artifact" that researchers should be aware of.
 
 ### Clinical Range Violations
 We check for values that fall outside conservative biological limits (e.g., Blood Pressure < 40).
