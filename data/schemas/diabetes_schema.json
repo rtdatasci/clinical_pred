@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Diabetes Clean Data Schema",
+    "description": "Schema for the final processed diabetes dataset (diabetes_clean.csv)",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "Pregnancies": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Number of times pregnant"
+            },
+            "Glucose": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Plasma glucose concentration a 2 hours in an oral glucose tolerance test"
+            },
+            "BloodPressure": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Diastolic blood pressure (mm Hg)"
+            },
+            "SkinThickness": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Triceps skin fold thickness (mm)"
+            },
+            "Insulin": {
+                "type": "number",
+                "minimum": 0,
+                "description": "2-Hour serum insulin (mu U/ml)"
+            },
+            "BMI": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Body mass index (weight in kg/(height in m)^2)"
+            },
+            "DiabetesPedigreeFunction": {
+                "type": "number",
+                "description": "Diabetes pedigree function"
+            },
+            "Age": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Age (years)"
+            },
+            "Outcome": {
+                "type": "integer",
+                "enum": [
+                    0,
+                    1
+                ],
+                "description": "Class variable (0 or 1)"
+            }
+        },
+        "required": [
+            "Pregnancies",
+            "Glucose",
+            "BloodPressure",
+            "SkinThickness",
+            "Insulin",
+            "BMI",
+            "DiabetesPedigreeFunction",
+            "Age",
+            "Outcome"
+        ],
+        "additionalProperties": false
+    }
+}

@@ -55,6 +55,13 @@ We check for values that fall outside conservative biological limits (e.g., Bloo
 - **Diabetes**: Found 4 violations in Blood Pressure (min 24.0) and 1 in BMI (max 67.1). These represent extreme cases or sensor errors that require human review.
 
 
+
+## 4. Schema Validation
+We ensure data integrity by validating the final output against a strict JSON schema (`data/schemas/diabetes_schema.json`).
+- Checks for correct data types (e.g., integers vs floats).
+- Enforces value constraints (e.g., non-negative biological measurements).
+- Ensures no required fields are missing.
+
 ## How to Run
 1. Install dependencies: `pip install -r requirements.txt`
 2. Run the Full Pipeline: `python scripts/run_pipeline.py`

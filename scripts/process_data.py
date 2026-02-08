@@ -4,6 +4,8 @@ import numpy as np
 import logging
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
+import json
+import jsonschema
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -19,6 +21,25 @@ def get_missingness_stats(df_raw, df_cleaned, columns):
         if col in ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']: m_type = 'Biological'
         stats.append({'Variable': col, 'Missing (Raw)': f"{raw_missing} ({raw_missing/total:.1%})", 'Missing (Clean)': f"{cleaned_missing} ({cleaned_missing/total:.1%})", 'Type': m_type})
     return pd.DataFrame(stats)
+
+def validate_schema(df, schema_path):
+    """Validates the dataframe against the JSON schema."""
+    if not os.path.exists(schema_path):
+        logging.warning(f"Schema file not found: {schema_path}. Skipping validation.")
+        return False
+        
+    with open(schema_path, 'r') as f:
+        schema = json.load(f)
+        
+    records = df.to_dict(orient='records')
+    
+    try:
+        jsonschema.validate(instance=records, schema=schema)
+        logging.info("Data validation successful: Data conforms to schema.")
+        return True
+    except jsonschema.exceptions.ValidationError as e:
+        logging.error(f"Data validation failed: {e.message}")
+        raise e
 
 def clean_diabetes(raw_path, canonical_path, ml_path):
     cols = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age', 'Outcome']
@@ -61,6 +82,11 @@ def clean_diabetes(raw_path, canonical_path, ml_path):
         
     os.makedirs(os.path.dirname(ml_path), exist_ok=True)
     df_ml.to_csv(ml_path, index=False)
+    
+    # Validate against schema
+    schema_path = os.path.join(os.path.dirname(ml_path), '..', 'schemas', 'diabetes_schema.json')
+    validate_schema(df_ml, schema_path)
+    
     return get_missingness_stats(df_can, df_ml, cols)
 
 def main():
