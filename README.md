@@ -45,7 +45,7 @@ We use a tiered approach to handle missingness without data loss.
 - **Why**: No derivation from a multi-class scale was needed for this dataset (unlike Cleveland Heart Disease), preserving the original ground truth.
 
 ## 3. Clinical Quality Report
-The `run_audit.py` script identifies artifacts introduced during cleaning and verifies biological plausibility.
+The `audit_quality.py` script identifies artifacts introduced during cleaning and verifies biological plausibility.
 
 ### Distribution Shifts
 Imputation can shift the mean. For example, in the Diabetes dataset, imputing **Insulin** (which had ~49% zeros) resulted in a shift of **+0.29** in the mean, identifying a significant "cleaning artifact" that researchers should be aware of.
@@ -57,5 +57,5 @@ We check for values that fall outside conservative biological limits (e.g., Bloo
 
 ## How to Run
 1. Install dependencies: `pip install -r requirements.txt`
-2. Run the Full Audit: `python scripts/run_audit.py`
+2. Run the Full Pipeline: `python scripts/run_pipeline.py`
 3. View Results: Open `data/audit_report.md` for the detailed clinical quality findings.
