@@ -18,7 +18,7 @@ We explicitly identify and handle "non-standard missing value encoding" to avoid
 
 
 ### Diabetes (Pima Indians)
-**Data Source**: [Pima Indians Diabetes Database (UCI Machine Learning Repository)](https://archive.ics.uci.edu/ml/datasets/pima+indians+diabetes)
+**Data Source**: [Pima Indians Diabetes Database (Kaggle / UCI)](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)
 
 Focuses on "Biological Impossible Zeros" treated as missing.
 | Variable      | Missing (Raw) | Type                          |
@@ -29,7 +29,22 @@ Focuses on "Biological Impossible Zeros" treated as missing.
 | Insulin       | 374 (48.7%)   | Biological (Impossible zeros) |
 | BMI           | 11 (1.4%)     | Biological (Impossible zeros) |
 
-## 2. Clinical Quality Report
+
+## 2. Data Processing & Imputation
+We use a tiered approach to handle missingness without data loss.
+
+### Imputation Strategy (MICE)
+- **Method**: Multivariate Imputation by Chained Equations (IterativeImputer with BayesianRidge).
+- **Why**: Dropping rows with missing values (e.g., Insulin, which has ~49% zeros) would discard half the dataset. MICE uses correlations between variables (e.g., Glucose & BMI) to estimate missing values probabilistically, preserving the dataset structure.
+- **Example**: A patient with `Insulin = 0` (missing) but high `Glucose` will likely have a higher imputed Insulin value than a patient with low Glucose, rather than filling with a global mean.
+    - *Observed Shift*: The mean Insulin value shifted slightly (+0.29) after imputation, indicating the missing values were estimated to be consistent with the observed population.
+
+### Target Processing
+- **Binary Target**: The `Outcome` variable (0 = No Diabetes, 1 = Diabetes) is preserved from the raw data.
+    - We cast this to integer to ensure clean downstream processing.
+- **Why**: No derivation from a multi-class scale was needed for this dataset (unlike Cleveland Heart Disease), preserving the original ground truth.
+
+## 3. Clinical Quality Report
 The `quality_report.py` script identifies artifacts introduced during cleaning and verifies biological plausibility.
 
 ### Distribution Shifts
